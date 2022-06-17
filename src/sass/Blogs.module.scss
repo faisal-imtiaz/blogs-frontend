@@ -1,0 +1,28 @@
+.container {
+    width: 60%;
+    margin-left: 20%;
+    padding-bottom: 220px;
+}
+
+.mainHeading {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.blogsDiv {
+    //background-color: rgb(240, 140, 140);
+    background-image: linear-gradient( to bottom right, rgb(128 171 93), rgb(209, 240, 184) );
+    border-radius: 10px;
+    width: 80%;
+    margin-top: 36px;
+    border-bottom: 1px solid #333;
+    padding: 7px 26px 12px 26px;
+}
+
+.blogsReplyText {
+    font-size: 14px;
+    cursor: pointer;
+    color: #0053ffb8;
+}
