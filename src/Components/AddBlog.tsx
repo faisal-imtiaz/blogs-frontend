@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { v4 as uuidv4 } from "uuid";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { NEW_BLOG } from "../Graphql/Mutations";
 import { GET_BLOGS } from "../Graphql/Queries";
@@ -8,22 +9,36 @@ import { GET_BLOGS } from "../Graphql/Queries";
 const AddBlog = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const notify = () => toast("Blog Added!");
 
   const [addNewBlog, { loading, error, data }] = useMutation(NEW_BLOG, {
     refetchQueries: [{ query: GET_BLOGS }, "blogs"],
     variables: {
-      id: uuidv4(),
-      title,
-      content,
-      userId: localStorage.getItem("user"),
+      newBlogDTO: {
+        title,
+        content,
+        userid: localStorage.getItem("user"),
+      },
     },
   });
+
+  const addBlogDB = () => {
+    if (title && content && localStorage.getItem("user")) {
+      addNewBlog();
+      notify();
+    } else if (localStorage.getItem("user")) {
+      alert("All Fields required!");
+    } else {
+      alert("Login to add blog!");
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!!</p>;
 
   return (
     <div className="container">
+      <ToastContainer />
       <div className="mainHeading">
         <h2>Add New Blog:</h2>
       </div>
@@ -40,7 +55,7 @@ const AddBlog = () => {
             onChange={(e) => setContent(e.target.value)}
           />
         </div>
-        <button onClick={() => addNewBlog()}>Add Blog</button>
+        <button onClick={() => addBlogDB()}>Add Blog</button>
       </div>
     </div>
   );

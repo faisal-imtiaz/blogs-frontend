@@ -1,17 +1,18 @@
-@import './Header.module.scss';
-@import './Home.module.scss';
-@import './Blogs.module.scss';
+@import "./Header.module.scss";
+@import "./Home.module.scss";
+@import "./Blogs.module.scss";
 
 button {
-    color: #333;
-    background-color: #add9ff;
-    border: 1px solid #333;
-    padding: 4px;
-    border-radius: 4px;
-    font-family:sans-serif;
-    cursor: pointer;
+  color: white;
+  background-color: #333;
+  border: 1px solid #333;
+  font-weight: bold;
+  padding: 6px;
+  border-radius: 3px;
+  font-family: sans-serif;
+  cursor: pointer;
 }
 
 a:link {
-    text-decoration: none;
-  }
+  text-decoration: none;
+}

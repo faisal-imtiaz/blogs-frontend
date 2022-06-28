@@ -1,73 +1,40 @@
 import { gql } from "@apollo/client";
 
+//SIGNUP MUTATION
 export const SIGNUP = gql`
-  mutation Signup(
-    $id: String!
-    $name: String!
-    $email: String!
-    $password: String!
-  ) {
-    signup(id: $id, name: $name, email: $email, password: $password) {
-      name
-      email
-    }
+  mutation Signup($signupDTO: SignupDTO!) {
+    signup(signupDTO: $signupDTO)
   }
 `;
 
+//LOGIN MUTATION
 export const LOGIN = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+  mutation Login($loginDTO: LoginDTO!) {
+    login(loginDTO: $loginDTO) {
       id
       jwt
     }
   }
 `;
 
+//NEW-COMMENT MUTATION
 export const NEW_COMMENT = gql`
-  mutation NewComment(
-    $id: String!
-    $content: String!
-    $userid: String!
-    $blogid: String!
-  ) {
-    newComment(id: $id, content: $content, userid: $userid, blogid: $blogid) {
-      id
-      content
-      userid
-      blogid
-    }
+  mutation NewComment($newCommentDTO: NewCommentDTO!) {
+    newComment(newCommentDTO: $newCommentDTO)
   }
 `;
 
+//NEW-REPLY MUTATION
 export const NEW_REPLY = gql`
-  mutation NewReply(
-    $id: String!
-    $content: String!
-    $commentid: String!
-    $userid: String!
-  ) {
-    newReply(
-      id: $id
-      content: $content
-      commentid: $commentid
-      userid: $userid
-    ) {
-      id
-      content
-      commentid
-      userName
-    }
+  mutation NewReply($newReplyDTO: NewReplyDTO!) {
+    newReply(newReplyDTO: $newReplyDTO)
   }
 `;
 
+//NEW-BLOG MUTATION
 export const NEW_BLOG = gql`
-  mutation NewBlog(
-    $id: String!
-    $title: String!
-    $content: String!
-    $userid: String!
-  ) {
-    newBlog(id: $id, title: $title, content: $content, userid: $userid) {
+  mutation NewBlog($newBlogDTO: NewBlogDTO!) {
+    newBlog(newBlogDTO: $newBlogDTO) {
       id
       title
       content

@@ -1,14 +1,14 @@
-type blog = {
-   id: any,
-   title: String,
-   content: String,
-   userid: String,
-   comments: String[]
-}
+type Blog = {
+  id: any;
+  title: string;
+  content: string;
+  userid: string;
+  author: string;
+  comments: String[];
+};
 
-type commentProps = {
-    blogId: Number
-}
+type CommentProps = {
+  blogId: Number;
+};
 
-
-export type {blog, commentProps} ;
+export type { Blog, CommentProps };

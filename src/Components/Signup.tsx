@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { v4 as uuidv4 } from "uuid";
 
 import { SIGNUP } from "../Graphql/Mutations";
 
@@ -10,16 +9,38 @@ const Signup = () => {
   const [newName, setNewName] = useState<string>("");
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string | number>("");
+  const [signupError, setSignupError] = useState<string>("");
   const notify = () => toast("New User Added!");
 
   const [addNewUser, { loading, error, data }] = useMutation(SIGNUP, {
     variables: {
-      id: uuidv4(),
-      name: newName,
-      email: newEmail,
-      password: newPassword,
+      signupDTO: {
+        name: newName,
+        email: newEmail,
+        password: newPassword,
+      },
     },
   });
+
+  const onClickSignup = async () => {
+    try {
+      if (newName && newEmail && newPassword) {
+        const { data } = await addNewUser();
+        if (data?.signup) {
+          notify();
+          setNewName("");
+          setNewEmail("");
+          setNewPassword("");
+        } else {
+          setSignupError("User Already Exist!");
+        }
+      } else {
+        alert("All Fields are required!");
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!!</p>;
@@ -46,25 +67,8 @@ const Signup = () => {
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
       />{" "}
-      <button
-        onClick={() => {
-          if (newName && newEmail && newPassword) {
-            if (newEmail.includes("@")) {
-              addNewUser();
-              notify();
-              setNewEmail("");
-              setNewPassword("");
-              setNewName("");
-            } else {
-              alert("Email is invalid!");
-            }
-          } else {
-            alert("All fields are required!");
-          }
-        }}
-      >
-        SignUp
-      </button>
+      <button onClick={() => onClickSignup()}>SignUp</button>
+      <h4>{signupError}</h4>
     </div>
   );
 };

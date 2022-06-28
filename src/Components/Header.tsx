@@ -5,6 +5,16 @@ import "react-toastify/dist/ReactToastify.css";
 const Header = () => {
   const notify = () => toast("User Logged-out!");
 
+  const onLogout = () => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      localStorage.clear();
+      document.cookie = "token=";
+      document.cookie = "token=; expires=Thu, 18 Dec 2013 12:00:00 UTC ";
+      notify();
+    }
+  };
+
   return (
     <>
       <ToastContainer />
@@ -29,13 +39,7 @@ const Header = () => {
           <div className="dropdown-content">
             <Link to="/login">Login</Link>
             <Link to="/signup">Signup</Link>
-            <Link
-              to="/login"
-              onClick={() => {
-                localStorage.clear();
-                notify();
-              }}
-            >
+            <Link to="/login" onClick={() => onLogout()}>
               Logout
             </Link>
           </div>

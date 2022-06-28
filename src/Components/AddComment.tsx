@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { v4 as uuidv4 } from "uuid";
 
 import { NEW_COMMENT } from "../Graphql/Mutations";
 import { GET_BLOGS } from "../Graphql/Queries";
-import { commentProps } from "../Types/types";
+import { CommentProps } from "../Types/types";
 
-const Comments = (props: commentProps) => {
-  const [comment, setComment] = useState("");
+const AddComment = (props: CommentProps) => {
+  const [comment, setComment] = useState<string>("");
 
-  const [addNewComment, { loading, error, data }] = useMutation(NEW_COMMENT, {
+  const [addNewComment, { loading, error }] = useMutation(NEW_COMMENT, {
     refetchQueries: [{ query: GET_BLOGS }, "blogs"],
     variables: {
-      id: uuidv4(),
-      content: comment,
-      userid: localStorage.getItem("user"),
-      blogid: props.blogId,
+      newCommentDTO: {
+        content: comment,
+        userid: localStorage.getItem("user"),
+        blogid: props.blogId,
+      },
     },
   });
 
@@ -36,8 +36,8 @@ const Comments = (props: commentProps) => {
   return (
     <div style={{ paddingTop: "16px" }}>
       <input
-        placeholder="add Comment"
-        style={{ padding: "4px" }}
+        placeholder="Type Comment..."
+        style={{ padding: "6px", borderRadius: "3px", border: "none" }}
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       />
@@ -48,4 +48,4 @@ const Comments = (props: commentProps) => {
   );
 };
 
-export default Comments;
+export default AddComment;

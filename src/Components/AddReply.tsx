@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { v4 as uuidv4 } from "uuid";
 
 import { NEW_REPLY } from "../Graphql/Mutations";
 import { GET_BLOGS } from "../Graphql/Queries";
@@ -11,17 +10,20 @@ const AddReply = (props: any) => {
   const [addNewReply, { loading, error, data }] = useMutation(NEW_REPLY, {
     refetchQueries: [{ query: GET_BLOGS }, "blogs"],
     variables: {
-      id: uuidv4(),
-      content: reply,
-      commentId: props.commentId,
-      userId: localStorage.getItem("user"),
+      newReplyDTO: {
+        content: reply,
+        commentid: props.commentId,
+        userid: localStorage.getItem("user"),
+      },
     },
   });
 
   const onReply = () => {
-    if (reply) {
+    if (reply && localStorage.getItem("user")) {
       addNewReply();
       setReply("");
+    } else if (reply) {
+      alert("Login to add Reply!");
     } else {
       alert("Reply cannot be Empty!");
     }
@@ -33,7 +35,7 @@ const AddReply = (props: any) => {
   return (
     <div>
       <input
-        placeholder="add Reply"
+        placeholder="Type Reply..."
         style={{ padding: "4px" }}
         value={reply}
         onChange={(e) => setReply(e.target.value)}
