@@ -31,7 +31,6 @@
 }
 
 .blogsCommentsDiv {
-  border-left: 2px solid black;
   margin-left: 20px;
   padding-left: 5px;
 }
@@ -52,4 +51,23 @@
 .blogDiv {
   margin-top: 50px;
   line-height: 24px;
+}
+
+.blogComment {
+  font-size: 18px;
+  margin-top: 24px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.blogReply {
+  margin-left: 4px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.blogViewReplies {
+  font-size: 14px;
+  color: #0053ffb8;
+  cursor: pointer;
+  margin-top: -10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

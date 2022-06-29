@@ -19,8 +19,8 @@ export const LOGIN = gql`
 
 //NEW-COMMENT MUTATION
 export const NEW_COMMENT = gql`
-  mutation NewComment($newCommentDTO: NewCommentDTO!) {
-    newComment(newCommentDTO: $newCommentDTO)
+  mutation NewComment($createCommentDTO: CreateCommentDTO!) {
+    newComment(createCommentDTO: $createCommentDTO)
   }
 `;
 
@@ -33,8 +33,8 @@ export const NEW_REPLY = gql`
 
 //NEW-BLOG MUTATION
 export const NEW_BLOG = gql`
-  mutation NewBlog($newBlogDTO: NewBlogDTO!) {
-    newBlog(newBlogDTO: $newBlogDTO) {
+  mutation NewBlog($createBlogDTO: CreateBlogDTO!) {
+    newBlog(createBlogDTO: $createBlogDTO) {
       id
       title
       content

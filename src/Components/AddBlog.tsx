@@ -14,7 +14,7 @@ const AddBlog = () => {
   const [addNewBlog, { loading, error, data }] = useMutation(NEW_BLOG, {
     refetchQueries: [{ query: GET_BLOGS }, "blogs"],
     variables: {
-      newBlogDTO: {
+      createBlogDTO: {
         title,
         content,
         userid: localStorage.getItem("user"),
