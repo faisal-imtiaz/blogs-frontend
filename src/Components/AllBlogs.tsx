@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 
 import AddComment from "./AddComment";
 import AddReply from "./AddReply";
-import { GET_BLOGS } from "../Graphql/Queries";
+import { GET_BLOGS } from "../Graphql/Queries/Blogs/blogQueries";
 import { Blog } from "../Types/types";
 
 const AllBlogs = () => {
@@ -62,7 +62,7 @@ const AllBlogs = () => {
             <p className="blogHeading">
               <b>Blog Title:</b> {blog.title}
             </p>
-            <i>written by:</i> {blog.author.toUpperCase()}
+            {/* <i>written by:</i> {blog?.user?.name?.toUpperCase()} */}
             <p className="blogDiv">
               <b className="blogHeading">Blog:</b> {blog.content}
             </p>
@@ -75,8 +75,8 @@ const AllBlogs = () => {
               return (
                 <div key={comment.id}>
                   <p className="blogComment">
-                    <b>{comment?.userName?.toUpperCase()}:</b> {comment.content}{" "}
-                    .{" "}
+                    {/* <b>{comment?.userName?.toUpperCase()}:</b> */}
+                    {comment.content} .{" "}
                     <span
                       className="blogsReplyText"
                       onClick={() => onReplyToggle(index, blog)}
@@ -91,7 +91,7 @@ const AllBlogs = () => {
                       borderLeft: getLeftBorder(index, blog),
                     }}
                   >
-                    {comment.replies.length > 0 && (
+                    {comment?.replies?.length > 0 && (
                       <p
                         className="blogViewReplies"
                         onClick={() => onReplyView(index, blog)}
@@ -103,7 +103,7 @@ const AllBlogs = () => {
                     {isReply &&
                       comment?.replies?.map((reply: any) => (
                         <p className="blogReply" key={reply.id}>
-                          <b>{reply?.userName?.toUpperCase()}: </b>
+                          {/* <b>{reply?.userName?.toUpperCase()}: </b> */}
                           {reply.content}
                         </p>
                       ))}

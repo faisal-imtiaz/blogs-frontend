@@ -6,19 +6,15 @@ export const GET_BLOGS = gql`
       id
       title
       content
-      userid
-      author
+      user {
+        name
+      }
       comments {
         id
         content
-        userid
-        blogid
-        userName
         replies {
           id
           content
-          commentid
-          userName
         }
       }
     }

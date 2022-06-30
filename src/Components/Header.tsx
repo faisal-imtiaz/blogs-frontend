@@ -37,8 +37,8 @@ const Header = () => {
         <div className="dropdown">
           <button className="dropbtn">More</button>
           <div className="dropdown-content">
-            <Link to="/login">Login</Link>
             <Link to="/signup">Signup</Link>
+            <Link to="/login">Login</Link>
             <Link to="/login" onClick={() => onLogout()}>
               Logout
             </Link>

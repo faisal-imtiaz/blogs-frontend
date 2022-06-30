@@ -2,13 +2,17 @@ type Blog = {
   id: any;
   title: string;
   content: string;
-  userid: string;
-  author: string;
+  user: User;
+  name: string;
   comments: String[];
 };
 
+type User = {
+  name: string;
+};
+
 type CommentProps = {
-  blogId: Number;
+  blogId: string;
 };
 
 export type { Blog, CommentProps };

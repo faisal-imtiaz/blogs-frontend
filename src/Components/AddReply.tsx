@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 
-import { NEW_REPLY } from "../Graphql/Mutations";
-import { GET_BLOGS } from "../Graphql/Queries";
+import { CREATE_REPLY } from "../Graphql/Mutations/Blogs/blogMutations";
+import { GET_BLOGS } from "../Graphql/Queries/Blogs/blogQueries";
 
 const AddReply = (props: any) => {
   const [reply, setReply] = useState<string>("");
 
-  const [addNewReply, { loading, error, data }] = useMutation(NEW_REPLY, {
+  const [addNewReply, { loading, error, data }] = useMutation(CREATE_REPLY, {
     refetchQueries: [{ query: GET_BLOGS }, "blogs"],
     variables: {
-      newReplyDTO: {
+      createReplyInputDTO: {
         content: reply,
-        commentid: props.commentId,
-        userid: localStorage.getItem("user"),
+        comment: props.commentId,
+        user: localStorage.getItem("user"),
       },
     },
   });

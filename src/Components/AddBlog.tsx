@@ -3,21 +3,21 @@ import { useMutation } from "@apollo/client";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { NEW_BLOG } from "../Graphql/Mutations";
-import { GET_BLOGS } from "../Graphql/Queries";
+import { CREATE_BLOG } from "../Graphql/Mutations/Blogs/blogMutations";
+import { GET_BLOGS } from "../Graphql/Queries/Blogs/blogQueries";
 
 const AddBlog = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const notify = () => toast("Blog Added!");
 
-  const [addNewBlog, { loading, error, data }] = useMutation(NEW_BLOG, {
+  const [addNewBlog, { loading, error, data }] = useMutation(CREATE_BLOG, {
     refetchQueries: [{ query: GET_BLOGS }, "blogs"],
     variables: {
-      createBlogDTO: {
+      createBlogInputDTO: {
         title,
         content,
-        userid: localStorage.getItem("user"),
+        user: localStorage.getItem("user"),
       },
     },
   });

@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { LOGIN } from "../Graphql/Mutations";
+import { LOGIN } from "../Graphql/Mutations/Users/userMutation";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
