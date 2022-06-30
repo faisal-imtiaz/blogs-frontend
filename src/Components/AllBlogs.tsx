@@ -62,7 +62,7 @@ const AllBlogs = () => {
             <p className="blogHeading">
               <b>Blog Title:</b> {blog.title}
             </p>
-            {/* <i>written by:</i> {blog?.user?.name?.toUpperCase()} */}
+            <i>written by:</i> {blog?.user?.name?.toUpperCase()}
             <p className="blogDiv">
               <b className="blogHeading">Blog:</b> {blog.content}
             </p>

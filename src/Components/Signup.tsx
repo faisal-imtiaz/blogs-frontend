@@ -14,7 +14,7 @@ const Signup = () => {
 
   const [addNewUser, { loading, error, data }] = useMutation(SIGNUP, {
     variables: {
-      signupDTO: {
+      createUserInputDTO: {
         name: newName,
         email: newEmail,
         password: newPassword,

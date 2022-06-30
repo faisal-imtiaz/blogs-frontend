@@ -13,7 +13,7 @@ const Login = () => {
 
   const [onLogin, { loading, error, data }] = useMutation(LOGIN, {
     variables: {
-      loginDTO: {
+      loginPayloadDTO: {
         email,
         password,
       },
