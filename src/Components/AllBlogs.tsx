@@ -75,7 +75,7 @@ const AllBlogs = () => {
               return (
                 <div key={comment.id}>
                   <p className="blogComment">
-                    {/* <b>{comment?.userName?.toUpperCase()}:</b> */}
+                    <b>{comment?.user?.name?.toUpperCase()}: </b>
                     {comment.content} .{" "}
                     <span
                       className="blogsReplyText"
@@ -103,7 +103,7 @@ const AllBlogs = () => {
                     {isReply &&
                       comment?.replies?.map((reply: any) => (
                         <p className="blogReply" key={reply.id}>
-                          {/* <b>{reply?.userName?.toUpperCase()}: </b> */}
+                          <b>{reply?.user?.name?.toUpperCase()}: </b>
                           {reply.content}
                         </p>
                       ))}

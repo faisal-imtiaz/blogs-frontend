@@ -12,10 +12,16 @@ export const GET_BLOGS = gql`
       comments {
         id
         content
-        # replies {
-        #   id
-        #   content
-        # }
+        user {
+          name
+        }
+        replies {
+          id
+          content
+          user {
+            name
+          }
+        }
       }
     }
   }
