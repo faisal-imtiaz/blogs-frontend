@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import { LOGIN } from "../Graphql/Mutations/Users/userMutation";
 
@@ -9,7 +7,6 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loginError, setLoginError] = useState<string>("");
-  const notify = () => toast("User Logged-in!");
 
   const [onLogin, { loading, error, data }] = useMutation(LOGIN, {
     variables: {
@@ -28,10 +25,10 @@ const Login = () => {
         if (data?.login?.id) {
           document.cookie = `token=${data?.login?.jwt}`;
           localStorage.setItem("user", data?.login?.id);
-          notify();
           setEmail("");
           setPassword("");
           setLoginError("");
+          window.location.reload();
         } else {
           setLoginError("incorrect credentials!");
         }
@@ -50,7 +47,6 @@ const Login = () => {
 
   return (
     <div>
-      <ToastContainer />
       <h2>Login:</h2>
       Email:{" "}
       <input

@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import AddComment from "./AddComment";
 import ShowReplies from "./ShowReplies";
 import AddReply from "./AddReply";
-import { GET_BLOGS } from "../Graphql/Queries/Blogs/blogQueries";
+import { GET_MY_BLOGS } from "../Graphql/Queries/Blogs/blogQueries";
 import { Blog } from "../Types/types";
 
 const AllBlogs = () => {
@@ -20,16 +20,19 @@ const AllBlogs = () => {
     }
   };
 
-  const { loading, error, data } = useQuery(GET_BLOGS);
+  const { loading, error, data } = useQuery(GET_MY_BLOGS, {
+    variables: {
+      id: localStorage.getItem("user"),
+    },
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!!</p>;
-  const blogs = data?.getBlogs;
-
+  const blogs = data?.getMyBlogs;
   return (
     <div className="container">
       <div className="mainHeading">
-        <h2>All Blogs:</h2>
+        <h2>My Blogs:</h2>
       </div>
 
       {/* ALL BLOGS */}
@@ -60,10 +63,8 @@ const AllBlogs = () => {
                     </span>
                   </p>
                   {/* REPLIES SECTION */}
-                  <ShowReplies
-                    commentid={comment.id}
-                    replyCount={comment.replyCount}
-                  />
+                  <ShowReplies commentid={comment.id} />
+
                   {/* ADD REPLY */}
                   {reply === index && blogReply === blog.id && (
                     <AddReply commentId={comment.id} />
