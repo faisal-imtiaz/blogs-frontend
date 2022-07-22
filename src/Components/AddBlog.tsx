@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
+import Loader from "./Loader";
+import { BLOG_ADDED } from "../utills/constants";
 import { CREATE_BLOG } from "../Graphql/Mutations/Blogs/blogMutations";
 import { GET_BLOGS } from "../Graphql/Queries/Blogs/blogQueries";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddBlog = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const notify = () => toast("Blog Added!");
+  const notify = () => toast(BLOG_ADDED);
 
   const [addNewBlog, { loading, error, data }] = useMutation(CREATE_BLOG, {
     refetchQueries: [{ query: GET_BLOGS }, "blogs"],
@@ -22,18 +23,22 @@ const AddBlog = () => {
     },
   });
 
-  const addBlogDB = () => {
-    if (title && content && localStorage.getItem("user")) {
-      addNewBlog();
-      notify();
-    } else if (localStorage.getItem("user")) {
-      alert("All Fields required!");
-    } else {
-      alert("Login to add blog!");
+  const addBlogDB = async () => {
+    try {
+      if (title && content && localStorage.getItem("user")) {
+        const { data } = await addNewBlog();
+        notify();
+      } else if (localStorage.getItem("user")) {
+        alert("All Fields required!");
+      } else {
+        alert("Login to add blog!");
+      }
+    } catch (e) {
+      console.log("ERROR: ", e);
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error!!</p>;
 
   return (

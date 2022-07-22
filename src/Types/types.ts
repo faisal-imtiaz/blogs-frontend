@@ -1,10 +1,24 @@
 type Blog = {
-  id: any;
+  id: number;
   title: string;
   content: string;
   user: User;
   name: string;
-  comments: String[];
+  comments: Comment[];
+};
+
+type Comment = {
+  id: number;
+  content: string;
+  user: User;
+  replyCount: string;
+};
+
+type Reply = {
+  id: number;
+  content: string;
+  commentid: string;
+  user: User;
 };
 
 type User = {
@@ -12,7 +26,16 @@ type User = {
 };
 
 type CommentProps = {
-  blogId: string;
+  blogId: number;
 };
 
-export type { Blog, CommentProps };
+type ReplyProps = {
+  commentId: number;
+};
+
+type ShowReplyProps = {
+  commentid: number;
+  replyCount: string;
+};
+
+export type { Blog, Comment, Reply, CommentProps, ReplyProps, ShowReplyProps };

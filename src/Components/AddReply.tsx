@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-
+import Loader from "./Loader";
 import { CREATE_COMMENT } from "../Graphql/Mutations/Blogs/blogMutations";
 import { GET_REPLIES } from "../Graphql/Queries/Blogs/blogQueries";
+import { ReplyProps } from "../Types/types";
 
-const AddReply = (props: any) => {
+const AddReply = (props: ReplyProps) => {
   const [reply, setReply] = useState<string>("");
 
   const [addNewComment, { loading, error }] = useMutation(CREATE_COMMENT, {
@@ -32,7 +33,7 @@ const AddReply = (props: any) => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error!!</p>;
 
   return (

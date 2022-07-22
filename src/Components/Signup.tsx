@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Loader from "./Loader";
 import { SIGNUP } from "../Graphql/Mutations/Users/userMutation";
 
 const Signup = () => {
   const [newName, setNewName] = useState<string>("");
   const [newEmail, setNewEmail] = useState<string>("");
-  const [newPassword, setNewPassword] = useState<string | number>("");
+  const [newPassword, setNewPassword] = useState<string>("");
   const [signupError, setSignupError] = useState<string>("");
   const notify = () => toast("New User Added!");
 
@@ -42,7 +42,7 @@ const Signup = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error!!</p>;
 
   return (

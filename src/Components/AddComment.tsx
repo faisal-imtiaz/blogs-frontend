@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-
+import Loader from "./Loader";
 import { CREATE_COMMENT } from "../Graphql/Mutations/Blogs/blogMutations";
 import { GET_BLOGS } from "../Graphql/Queries/Blogs/blogQueries";
 import { CommentProps } from "../Types/types";
@@ -30,7 +30,7 @@ const AddComment = (props: CommentProps) => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error!!</p>;
 
   return (

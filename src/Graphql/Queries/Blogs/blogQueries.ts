@@ -35,6 +35,7 @@ export const GET_MY_BLOGS = gql`
       comments {
         id
         content
+        replyCount
         user {
           name
         }

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-
+import Loader from "./Loader";
 import AddComment from "./AddComment";
 import ShowReplies from "./ShowReplies";
 import AddReply from "./AddReply";
 import { GET_MY_BLOGS } from "../Graphql/Queries/Blogs/blogQueries";
-import { Blog } from "../Types/types";
+import { Blog, Comment } from "../Types/types";
 
 const AllBlogs = () => {
   const [reply, setReply] = useState<Number>(-1);
@@ -26,9 +26,9 @@ const AllBlogs = () => {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error!!</p>;
-  const blogs = data?.getMyBlogs;
+  const blogs: Blog[] = data?.getMyBlogs;
   return (
     <div className="container">
       <div className="mainHeading">
@@ -49,7 +49,7 @@ const AllBlogs = () => {
             <hr />
             {/* COMMENTS SECTION */}
             <h3 className="blogsCommentsBtn">Comments:</h3>
-            {blog?.comments?.map((comment: any, index: Number) => {
+            {blog?.comments?.map((comment: Comment, index: Number) => {
               return (
                 <div key={comment.id}>
                   <p className="blogComment">
@@ -63,7 +63,10 @@ const AllBlogs = () => {
                     </span>
                   </p>
                   {/* REPLIES SECTION */}
-                  <ShowReplies commentid={comment.id} />
+                  <ShowReplies
+                    commentid={comment.id}
+                    replyCount={comment.replyCount}
+                  />
 
                   {/* ADD REPLY */}
                   {reply === index && blogReply === blog.id && (

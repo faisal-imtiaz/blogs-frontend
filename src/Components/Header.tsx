@@ -1,6 +1,9 @@
 import { useState } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
-
+import styled from "@emotion/styled";
+import { Button } from "@mui/material";
 const Header = () => {
   const [loggedIn, setLoggedIn] = useState<boolean>(
     localStorage.getItem("user") ? true : false
@@ -12,59 +15,74 @@ const Header = () => {
       document.cookie = "token=";
       document.cookie = "token=; expires=Thu, 18 Dec 2013 12:00:00 UTC ";
       setLoggedIn(false);
-      window.location.replace("/login");
     }
   };
 
   return (
     <>
-      <header className="header-container">
-        <h1 className="header-blogHeading">Blogs Project</h1>
-      </header>
-      <div className="header-navbar">
-        <Link to="/">
-          <div className="header-nav">Home</div>
-        </Link>
-        {loggedIn && (
-          <Link to="my-blogs">
-            <div className="header-nav">My Blogs</div>
-          </Link>
-        )}
-        <Link to="new-blog">
-          <div className="header-nav">Add Blog</div>
-        </Link>
-        <Link to="/about">
-          <div className="header-nav">About</div>
-        </Link>
-        <div className="dropdown">
-          <button className="dropbtn">More</button>
-          <div className="dropdown-content">
-            <Link to="/signup">Signup</Link>
-            {!loggedIn && <Link to="/login">Login</Link>}
+      <CssBaseline />
+      <Container maxWidth={false} className="headerContainer">
+        <div>
+          <span className="logoKwanso">Kwanso</span>{" "}
+          <span className="logoBlogs">Blogs</span>
+          <span style={{ marginLeft: "100px" }}>
+            <Link to="/">
+              <NavLink>Homepage</NavLink>
+            </Link>
             {loggedIn && (
-              <Link to="/login" onClick={() => onLogout()}>
-                Logout
+              <Link to="/my-blogs">
+                <NavLink>My Blogs</NavLink>
               </Link>
             )}
-          </div>
-        </div>
-        <div className="header-userStatus">
-          <p style={{}}>
-            Currently:{" "}
-            {loggedIn ? (
-              <span style={{ color: "green", fontWeight: "bold" }}>
-                Logged-in
-              </span>
-            ) : (
-              <span style={{ color: "red", fontWeight: "bold" }}>
-                Logged-out
-              </span>
+            <Link to="/about-us">
+              <NavLink>About us</NavLink>
+            </Link>
+            {!loggedIn && (
+              <Link to="/login">
+                <NavLink>Login</NavLink>
+              </Link>
             )}
-          </p>
+            {loggedIn && (
+              <Link to="/login" onClick={() => onLogout()}>
+                <NavLink>Logout</NavLink>
+              </Link>
+            )}
+          </span>
+          {loggedIn && (
+            <Link to="/new-blog">
+              <StyledButton>Create Blog</StyledButton>
+            </Link>
+          )}
         </div>
-      </div>
+      </Container>
     </>
   );
 };
 
 export default Header;
+
+const NavLink = styled.span`
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 15px;
+  margin-left: 32px;
+`;
+
+const StyledButton = styled(Button)({
+  marginLeft: "460px",
+  color: "white",
+  boxShadow: "none",
+  textTransform: "none",
+  fontSize: 16,
+  padding: "6px 12px",
+  border: "1px solid #00AAA1",
+  lineHeight: 1.5,
+  backgroundColor: "#00AAA1",
+  "&:hover": {
+    backgroundColor: "#029e96",
+    borderColor: "#029e96",
+  },
+});

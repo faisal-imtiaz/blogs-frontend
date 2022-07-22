@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-
+import Loader from "./Loader";
 import { LOGIN } from "../Graphql/Mutations/Users/userMutation";
 
 const Login = () => {
@@ -42,7 +42,7 @@ const Login = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error!!</p>;
 
   return (

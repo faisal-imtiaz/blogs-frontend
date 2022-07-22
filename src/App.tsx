@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<AllBlogs />} />
         <Route path="/my-blogs" element={<MyBlogs />} />
         <Route path="/new-blog" element={<AddBlog />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about-us" element={<About />} />
       </Routes>
     </BrowserRouter>
   );
