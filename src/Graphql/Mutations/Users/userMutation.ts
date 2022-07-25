@@ -6,6 +6,10 @@ export const SIGNUP = gql`
     signup(createUserInputDTO: $createUserInputDTO) {
       name
       email
+      res {
+        status
+        msg
+      }
     }
   }
 `;

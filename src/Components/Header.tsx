@@ -52,6 +52,11 @@ const Header = () => {
               <StyledButton>Create Blog</StyledButton>
             </Link>
           )}
+          {!userStatus && (
+            <Link to="/signup">
+              <NavLink>Signup</NavLink>
+            </Link>
+          )}
         </div>
       </Container>
     </>
