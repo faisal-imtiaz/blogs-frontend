@@ -1,3 +1,8 @@
+type AuthState = {
+  userStatus: string;
+  setUserStatus: (userStatus: string) => void;
+};
+
 type Blog = {
   id: number;
   title: string;
@@ -38,4 +43,12 @@ type ShowReplyProps = {
   replyCount: string;
 };
 
-export type { Blog, Comment, Reply, CommentProps, ReplyProps, ShowReplyProps };
+export type {
+  AuthState,
+  Blog,
+  Comment,
+  Reply,
+  CommentProps,
+  ReplyProps,
+  ShowReplyProps,
+};

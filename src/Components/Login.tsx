@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
 import Loader from "./Loader";
+import { AppContext } from "../Context/AppContext";
 import { LOGIN } from "../Graphql/Mutations/Users/userMutation";
+import { AuthState } from "../Types/types";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -17,23 +19,22 @@ const Login = () => {
     },
   });
 
+  const appContext: AuthState = useContext(AppContext);
+  const setUserStatus = appContext?.setUserStatus;
+
   const onClickLogin = async () => {
     try {
-      const user = localStorage.getItem("user");
-      if (email && password && !user) {
+      if (email && password) {
         const { errors, data } = await onLogin();
         if (data?.login?.id) {
-          document.cookie = `token=${data?.login?.jwt}`;
-          localStorage.setItem("user", data?.login?.id);
+          localStorage.setItem("token", data?.login?.jwt);
           setEmail("");
           setPassword("");
           setLoginError("");
-          window.location.reload();
+          setUserStatus(data?.login?.id);
         } else {
           setLoginError("incorrect credentials!");
         }
-      } else if (user) {
-        alert("Already Logged-in!");
       } else {
         alert("All Fields are required!");
       }

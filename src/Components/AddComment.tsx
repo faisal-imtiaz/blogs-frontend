@@ -1,29 +1,34 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
 import Loader from "./Loader";
 import { CREATE_COMMENT } from "../Graphql/Mutations/Blogs/blogMutations";
 import { GET_BLOGS } from "../Graphql/Queries/Blogs/blogQueries";
 import { CommentProps } from "../Types/types";
+import { AppContext } from "../Context/AppContext";
+import { AuthState } from "../Types/types";
 
 const AddComment = (props: CommentProps) => {
   const [comment, setComment] = useState<string>("");
+
+  const appContext: AuthState = useContext(AppContext);
+  const userStatus = appContext?.userStatus;
 
   const [addNewComment, { loading, error }] = useMutation(CREATE_COMMENT, {
     refetchQueries: [{ query: GET_BLOGS }, "getBlogs"],
     variables: {
       createCommentInputDTO: {
         content: comment,
-        user: localStorage.getItem("user"),
+        user: userStatus,
         blog: props.blogId,
       },
     },
   });
 
   const onComment = () => {
-    if (comment && localStorage.getItem("user")) {
+    if (comment && userStatus) {
       addNewComment();
       setComment("");
-    } else if (localStorage.getItem("user")) {
+    } else if (userStatus) {
       alert("Comment cannot be Empty!");
     } else {
       alert("Login for comment!");

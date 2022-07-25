@@ -1,21 +1,20 @@
-import { useState } from "react";
+import { useContext } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
-import styled from "@emotion/styled";
 import { Button } from "@mui/material";
+import styled from "@emotion/styled";
+import { AppContext } from "../Context/AppContext";
+import { AuthState } from "../Types/types";
+
 const Header = () => {
-  const [loggedIn, setLoggedIn] = useState<boolean>(
-    localStorage.getItem("user") ? true : false
-  );
+  const appContext: AuthState = useContext(AppContext);
+  const userStatus = appContext?.userStatus;
+  const setUserStatus = appContext?.setUserStatus;
+
   const onLogout = () => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      localStorage.clear();
-      document.cookie = "token=";
-      document.cookie = "token=; expires=Thu, 18 Dec 2013 12:00:00 UTC ";
-      setLoggedIn(false);
-    }
+    localStorage.clear();
+    setUserStatus("");
   };
 
   return (
@@ -29,7 +28,7 @@ const Header = () => {
             <Link to="/">
               <NavLink>Homepage</NavLink>
             </Link>
-            {loggedIn && (
+            {userStatus && (
               <Link to="/my-blogs">
                 <NavLink>My Blogs</NavLink>
               </Link>
@@ -37,18 +36,18 @@ const Header = () => {
             <Link to="/about-us">
               <NavLink>About us</NavLink>
             </Link>
-            {!loggedIn && (
+            {!userStatus && (
               <Link to="/login">
                 <NavLink>Login</NavLink>
               </Link>
             )}
-            {loggedIn && (
+            {userStatus && (
               <Link to="/login" onClick={() => onLogout()}>
                 <NavLink>Logout</NavLink>
               </Link>
             )}
           </span>
-          {loggedIn && (
+          {userStatus && (
             <Link to="/new-blog">
               <StyledButton>Create Blog</StyledButton>
             </Link>

@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useQuery } from "@apollo/client";
 import Loader from "./Loader";
 import AddComment from "./AddComment";
 import ShowReplies from "./ShowReplies";
 import AddReply from "./AddReply";
 import { GET_MY_BLOGS } from "../Graphql/Queries/Blogs/blogQueries";
-import { Blog, Comment } from "../Types/types";
+import { AppContext } from "../Context/AppContext";
+
+import { AuthState, Blog, Comment } from "../Types/types";
 
 const AllBlogs = () => {
   const [reply, setReply] = useState<Number>(-1);
@@ -20,9 +22,12 @@ const AllBlogs = () => {
     }
   };
 
+  const appContext: AuthState = useContext(AppContext);
+  const userStatus = appContext?.userStatus;
+
   const { loading, error, data } = useQuery(GET_MY_BLOGS, {
     variables: {
-      id: localStorage.getItem("user"),
+      id: userStatus,
     },
   });
 

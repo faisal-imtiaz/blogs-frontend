@@ -7,7 +7,6 @@ export const GET_BLOGS = gql`
       title
       content
       user {
-        id
         name
       }
       comments {
@@ -29,7 +28,6 @@ export const GET_MY_BLOGS = gql`
       title
       content
       user {
-        id
         name
       }
       comments {

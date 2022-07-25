@@ -4,7 +4,6 @@ import { gql } from "@apollo/client";
 export const CREATE_BLOG = gql`
   mutation CreateBlog($createBlogInputDTO: CreateBlogInputDTO!) {
     createBlog(createBlogInputDTO: $createBlogInputDTO) {
-      id
       title
       content
     }
